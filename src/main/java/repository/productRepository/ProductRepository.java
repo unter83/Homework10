@@ -14,6 +14,5 @@ public interface ProductRepository {
     void delete(int id);
     void deleteAll();
     void createTable();
-
     int getDBSize();
 }

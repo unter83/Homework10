@@ -1,14 +1,12 @@
-package repository.orderRepository;
+package argregator;
 
 /** Класс OrderRepository представляет репозиторий для работы с заказами.
- * Этот класс предоставляет методы для сохранения, извлечения и управления заказами в базе данных.
- *
- * В контексте паттерна "Агрегатор", данный класс служит для интеграции бизнес-логики приложения
- * с базой данных, где сохраняются и извлекаются данные о заказах.
- */
+        * Этот класс предоставляет методы для сохранения, извлечения и управления заказами в базе данных.
+        *
+        * В контексте паттерна "Агрегатор", данный класс служит для интеграции бизнес-логики приложения
+        * с базой данных, где сохраняются и извлекаются данные о заказах.
+        */
 
-import repository.Order;
-import repository.OrderItem;
 import repository.product.Product;
 
 import java.sql.*;
@@ -16,7 +14,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderRepositoryImpl implements OrderRepository {
+public class OrderRepository {
 
     // Соединение с базой данных
     private Connection connection;
@@ -26,7 +24,7 @@ public class OrderRepositoryImpl implements OrderRepository {
      *
      * @param databaseUrl URL базы данных для подключения
      */
-    public OrderRepositoryImpl(String databaseUrl) throws SQLException {
+    public OrderRepository(String databaseUrl) throws SQLException {
         connection = DriverManager.getConnection(databaseUrl);
         initDatabase();
     }
@@ -124,15 +122,8 @@ public class OrderRepositoryImpl implements OrderRepository {
         while (rs.next()) {
             int productId = rs.getInt("productId");
             int quantity = rs.getInt("quantity");
-            PreparedStatement stmt2 = connection.prepareStatement("SELECT name, price FROM products WHERE Id=?");
-            ResultSet rs2 = stmt2.executeQuery();
-            while (rs2.next()) {
-                String productName = rs2.getString("name");
-                double productPrice = rs2.getDouble("price");
-                Product product = new Product(productName, productPrice);
-                orderItems.add(new OrderItem(product, quantity));
-            }
-            rs2.close();
+            Product product = new Product(productId, "Product " + productId, 10.0);
+            orderItems.add(new OrderItem(product, quantity));
         }
         rs.close();
         stmt.close();

@@ -1,7 +1,7 @@
-package repository.product;
+package argregator.product;
 
 
-public class Juice extends Product{
+public class Juice extends Product {
 
     public Juice(int id, String name, double price) {
         super(id, name, price);

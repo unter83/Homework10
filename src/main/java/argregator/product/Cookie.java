@@ -1,6 +1,6 @@
-package repository.product;
+package argregator.product;
 
-public class Cookie extends Product{
+public class Cookie extends Product {
 
     public Cookie(int id, String name, double price) {
         super(id, name, price);

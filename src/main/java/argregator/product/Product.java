@@ -1,4 +1,4 @@
-package repository.product;
+package argregator.product;
  public class Product {
     private int id = 0;
     private int currentId ;
